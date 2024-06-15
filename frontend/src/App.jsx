@@ -4,6 +4,9 @@ import Register from "./components/Register";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SignIn from "./components/SignIn";
+import { AuthProvider } from "./contexts/AuthContext";
+import Dashboard from "./components/Dashboard";
+import PrivateRoute from "./components/PrivateRoute";
 
 axios.defaults.baseURL = process.env.REACT_APP_AXIOS_BASE_URL;
 axios.defaults.timeout = parseInt(process.env.REACT_APP_AXIOS_TIMEOUT, 10);
@@ -14,11 +17,16 @@ function App() {
 	return (
 		<div>
 			<BrowserRouter>
-				<Routes>
-					<Route path="/login" element={<SignIn />} />
-					<Route path="/register" element={<Register />} />
-					<Route path="*" element={<SignIn/>} />
-				</Routes>
+				<AuthProvider>
+					<Routes>
+						<Route path="/login" element={<SignIn />} />
+						<Route path="/register" element={<Register />} />
+						<Route element={<PrivateRoute />}>
+							<Route path="/dashboard" element={<Dashboard />} />
+						</Route>
+						<Route path="*" element={<SignIn />} />
+					</Routes>
+				</AuthProvider>
 			</BrowserRouter>
 		</div>
 	);

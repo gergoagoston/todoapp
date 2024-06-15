@@ -40,11 +40,11 @@ authRouter.post("/auth/login", async (req, res) => {
 			return res.status(401).json({ error: "Invalid password" })
 		}
 
-		const token = jwt.sign({username}, SECRET_KEY, {
+		const token = jwt.sign({username, userid:user.userid}, SECRET_KEY, {
 			expiresIn: "1h",
 		});
 
-		res.status(200).json({ token});
+		res.status(200).json({ token, userid:user.userid});
 	} catch (err) {
 		console.error(err);
 		res.status(500).json({ error: "Internal server error" });

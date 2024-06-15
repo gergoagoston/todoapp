@@ -11,6 +11,19 @@ export const getUserByUserName = async (username) => {
 		throw err;
 	}
 };
+
+export const getUserByUserID = async (userID) => {
+	try {
+		const query = "SELECT * FROM users where userID = $1";
+		const result = await pool.query(query, [userID]);
+		console.log("getUserByUserID.....completed");
+		return result.rows;
+	} catch (err) {
+		console.error("getUserByUserID:", err);
+		throw err;
+	}
+};
+
 export const createUser = async (username, password) => {
 	try {
 		const query = "INSERT INTO users (username, password) VALUES ($1, $2)";
