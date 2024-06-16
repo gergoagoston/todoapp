@@ -7,8 +7,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS todos (
 	todoID SERIAL PRIMARY KEY,
-	status INT NOT NULL,
-	priority int NOT NULL,
+	done BOOLEAN NOT NULL,
 	todoName varchar(40) NOT NULL,
 	userID INT,
 	FOREIGN KEY (userID) REFERENCES users(userID)
